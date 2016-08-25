@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ./env/bin/activate
+python espn.py
+python draft_wizard.py

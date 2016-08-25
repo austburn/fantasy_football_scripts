@@ -51,7 +51,7 @@ if __name__ == '__main__':
     dw = requests.get('http://draftwizard.fantasypros.com/nfl/adp/mock-drafts/overall/default-ppr-14-teams')
     content = dw.text
 
-    soup = BeautifulSoup(content)
+    soup = BeautifulSoup(content, "html.parser")
     table = soup.find('tbody')
     players = table.find_all('tr')
 

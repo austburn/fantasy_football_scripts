@@ -3,8 +3,11 @@ from bs4 import BeautifulSoup
 
 
 def format_player(row):
-    link = row.find('a')
-    href = link.get('href')
+    link = row.find('td')
+    try:
+        href = link.find('a').get('href')
+    except Exception:
+        href = ''
     player_name = link.text.split(' ')
 
     cols = row.find_all('td')
@@ -26,10 +29,10 @@ def format_player(row):
 
 # https://docs.google.com/spreadsheets/d/1yJLic0-KQnl9jIvFE0pc1O-O4ZsLMUnTYHvjd6M9JcA/edit?usp=sharing
 if __name__ == '__main__':
-    espn = requests.get('http://espn.go.com/fantasy/football/story/_/id/12866396/top-300-rankings-2015')
+    espn = requests.get('http://www.espn.com/fantasy/football/story/_/id/16287927/2016-fantasy-football-rankings-fantasy-football-player-rankings-top-fantasy-football-players-fantasy-football-draft')
     content = espn.text
 
-    soup = BeautifulSoup(content)
+    soup = BeautifulSoup(content, "html.parser")
     table = soup.find_all('tbody')[-1]
     players = table.find_all('tr')
 
